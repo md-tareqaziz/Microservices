@@ -4,7 +4,7 @@ server:
     context-path: /employee
 spring:
   application:
-    name: employee
+    name: MSEMPLOYEE
   cloud:
     config:
       profile: oauth, datasource

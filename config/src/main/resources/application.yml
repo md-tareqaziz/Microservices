@@ -1,7 +1,6 @@
-
 spring:
   application:
-    name: CONFIG-SERVER
+    name: MSCONFIG
   cloud:
     config:
       server:
@@ -11,11 +10,11 @@ spring:
 server:
   port: 9191
 
-#eureka:
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: http://localhost:8761/eureka/
-#  instance:
-#    hostname: localhost
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
