@@ -1,0 +1,95 @@
+server:
+  port: 9000
+management:
+  endpoint:
+    web:
+      exposer:
+        include: "*"
+
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    config:
+      profile: gateway
+#    gateway:
+#      routes:
+#        - id: employee-route
+#          uri: ${EMPLOYEE_SERVICE_URL:http://localhost:9001}
+#          predicates:
+#            - Path=/employee/**
+#          filters:
+#            - AddRequestHeader=X-Tenant,acme
+#            - AddResponseHeader=X-Genre,fantasy
+#            - name: Retry #it is dangerous for post bcause it may do same tusk multiple times.
+#              args:
+#                retries: 1
+#                methods: GET
+#                backoff:
+#                  firstBackoff: 100ms
+#                  maxBackoff: 500ms
+#            - name: CircuitBreaker
+#              args:
+#                name: employeeService
+#                fallbackUri: forward:/employee-fallback/
+#        - id: project-route
+#          uri: ${PROJECT_SERVICE_URL:http://localhost:9002}
+#          predicates:
+#            - Path=/projects/**
+#          filters:
+#            - AddRequestHeader=X-Tenant,acme
+#            - AddResponseHeader=X-Genre,fantasy
+#            - name: Retry #it is dangerous for post bcause it may do same tusk multiple times.
+#              args:
+#                retries: 1
+#                methods: GET
+#                backoff:
+#                  firstBackoff: 100ms
+#                  maxBackoff: 500ms
+#            - name: CircuitBreaker
+#              args:
+#                name: projectService
+#                fallbackUri: forward:/project-fallback/
+#      default-filters:
+#        - TokenRelay #pass access_token to resource servers/microservices
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          keycloak:
+#            client-id: employee_service_id
+#            client-secret: secret
+#            scopes: openid
+#        provider:
+#          keycloak:
+#            issuer-uri: ${KEYCLOAK_URL:http://localhost:8080}/realms/test
+#
+#  session:
+#    store-type: redis
+#  redis:
+#    host: localhost
+#    port: 6379
+#
+#resilience4j:
+#  circuitbreaker:
+#    instances:
+#      employeeService:
+#        slidingWindowSize: 10
+#        permittedNumberOfCallsInHalfOpenState: 5
+#        failureRateThreshold: 50
+#        waitDurationInOpenState: 10000
+#        registerHealthIndicator: true
+#      projectService:
+#        slidingWindowSize: 10
+#        permittedNumberOfCallsInHalfOpenState: 5
+#        failureRateThreshold: 50
+#        waitDurationInOpenState: 10000
+#        registerHealthIndicator: true
+#  timelimiter:
+#    instances:
+#      employeeService:
+#        timeoutDuration: 2s
+#      projectService:
+#        timeoutDuration: 2s
+#
