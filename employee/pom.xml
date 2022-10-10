@@ -87,6 +87,7 @@
 		</dependencies>
 	</dependencyManagement>
 	<build>
+		<finalName>msemployee</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

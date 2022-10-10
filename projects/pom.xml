@@ -87,6 +87,7 @@
 		</dependencies>
 	</dependencyManagement>
 	<build>
+		<finalName>msproject</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

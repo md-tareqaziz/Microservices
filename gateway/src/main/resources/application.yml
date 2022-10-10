@@ -9,7 +9,7 @@ management:
 
 spring:
   application:
-    name: MSGATEWAY
+    name: msgateway
   cloud:
     config:
       profile: gateway

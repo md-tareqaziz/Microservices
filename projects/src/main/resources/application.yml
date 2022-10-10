@@ -4,7 +4,7 @@ server:
     context-path: /projects
 spring:
   application:
-    name: MSPROJECT
+    name: msproject
   cloud:
     config:
       profile: oauth, datasource

@@ -16,6 +16,6 @@ public class EmployeeResponse implements Serializable {
 
     public void setDefault(){
         this.employeeList=new ArrayList<>();
-        this.employeeList.add(new Employee("Tareq","Dev",10000.0));
+        this.employeeList.add(new Employee("Showing fall back","service unavailable",0.0));
     }
 }
