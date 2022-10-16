@@ -5,17 +5,17 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/md-tareqaziz/Configurations
+          uri: ${CONFIG_GIT_URL:https://github.com/md-tareqaziz/Configurations}
 
 server:
-  port: 9191
+  port: ${CONFIG_PORT:9191}
 
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://${REGISTRY_SERVICE:192.168.1.4:8761}/eureka/
+      defaultZone: ${REGISTRY_SERVICE:http://192.168.1.4:8761/eureka/}
   instance:
     prefer-ip-address: true
 #    hostname: ${REGISTRY_HOST:localhost}

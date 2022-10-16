@@ -1,0 +1,168 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: mspostgres
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - /home/tareq/dockerdata/postgres:/var/lib/postgresql/data
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_USER: tq
+      POSTGRES_PASSWORD: t@q
+      POSTGRES_DB: ms
+#    networks:
+#      - ms_net
+    deploy:
+      replicas: 1
+
+
+#  redis:
+#    container_name: msredis
+#    image: redis:5.0.5-alpine3.9
+#    command: redis-server --appendonly yes
+#    restart: always
+#    ports:
+#      - 6379:6379
+#    volumes:
+#      - /home/tareq/dockerdata/redis:/data
+#    networks:
+#      - ms_net
+#    deploy:
+#      replicas: 1
+#
+#
+#  keycloak:
+#    container_name: mskeycloak
+#    image: quay.io/keycloak/keycloak:19.0.3
+#    environment:
+#      DB_VENDOR: POSTGRES
+#      DB_ADDR: postgres
+#      DB_DATABASE: ms
+#      DB_USER: tq
+#      DB_SCHEMA: public
+#      DB_PASSWORD: t@q
+#      KEYCLOAK_USER: admin
+#      KEYCLOAK_PASSWORD: admin
+#      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+#      #JDBC_PARAMS: "ssl=true"
+#    ports:
+#      - 8080:8080
+#    networks:
+#      - ms_net
+#    depends_on:
+#      - postgres
+#
+#
+#  registry:
+#    image: msregistry:1.0
+#    container_name: msregistry
+#    ports:
+#      - 8761:8761
+#    restart: always
+#    networks:
+#      - ms_net
+#    environment:
+#      REGISTRY_PORT: 8761
+#    deploy:
+#      replicas: 1
+#
+#
+#  config:
+#    image: msconfig:1.0
+#    container_name: msconfig
+#    ports:
+#      - 9191:9191
+#    restart: always
+#    depends_on:
+#      - registry
+#    environment:
+#      REGISTRY_SERVICE: http://192.168.1.4:8761/eureka/
+#      CONFIG_GIT_URL: https://github.com/md-tareqaziz/Configurations
+#      CONFIG_PORT: 9191
+#    networks:
+#      - ms_net
+#    deploy:
+#      replicas: 1
+#
+#
+#  gateway:
+#    image: msgateway:1.0
+#    container_name: msgateway
+#    ports:
+#      - 9000:9000
+#    restart: always
+#    depends_on:
+#      - redis
+#      - registry
+#      - config
+#      - keycloak
+#    environment:
+#      CONFIG_SERVICE: http://192.168.1.4:9191
+#      GATEWAY_PORT: 9000
+#      KEYCLOAK_URL: http://192.168.1.4:8080
+#      REDIS_HOST: 192.168.1.4
+#      CLIENT_ID: ms_client
+#      CLIENT_SECRET: secret
+#      CLIENT_SCOPES: openid
+#    networks:
+#      - ms_net
+#    deploy:
+#      replicas: 1
+#
+#
+#  employee:
+#    image: msemployee:1.0
+#    container_name: msemployee
+#    ports:
+#      - 9001:9001
+#    restart: always
+#    depends_on:
+#      - postgres
+#      - registry
+#      - config
+#    environment:
+#      CONFIG_SERVICE: http://192.168.1.4:9191
+#      DATASOURCE_HOST: 192.168.1.4
+#      DATASOURCE_PORT: 5432
+#      DATASOURCE_DB: ms
+#      DATASOURCE_USER: tq
+#      DATASOURCE_PASS: t@q
+#      EMPLOYEE_PORT: 9001
+#    networks:
+#      - ms_net
+#    deploy:
+#      replicas: 1
+#
+#
+#  project:
+#    image: msproject:1.0
+#    container_name: msproject
+#    ports:
+#      - 9002:9002
+#    restart: always
+#    depends_on:
+#      - registry
+#      - config
+#      - postgres
+#    environment:
+#      CONFIG_SERVICE: http://192.168.1.4:9191
+#      DATASOURCE_HOST: 192.168.1.4
+#      DATASOURCE_PORT: 5432
+#      DATASOURCE_DB: ms
+#      DATASOURCE_USER: tq
+#      DATASOURCE_PASS: t@q
+#      PROJECT_PORT: 9002
+#    networks:
+#      - ms_net
+#    deploy:
+#      replicas: 1
+
+
+#networks:
+#  ms_net:
+#    driver: overlay
+#    attachable: true
