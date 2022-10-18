@@ -1,0 +1,126 @@
+version: '3.8'
+
+services:
+  registry:
+    image: msregistry:1.0
+    container_name: msregistry
+    ports:
+      - 8761:8761
+    restart: always
+#    networks:
+#      - ms_net
+    environment:
+      REGISTRY_PORT: 8761
+    deploy:
+      replicas: 1
+
+
+  config:
+    image: msconfig:1.0
+    container_name: msconfig
+    ports:
+      - 9191:9191
+    restart: always
+    depends_on:
+      - registry
+    environment:
+      CONFIG_GIT_URL: github.com/md-tareqaziz/Configurations
+      REGISTRY_HOST: 192.168.1.8
+      REGISTRY_PORT: 8761
+      CONFIG_HOST: 192.168.1.8
+      CONFIG_PORT: 9191
+#    networks:
+#      - ms_net
+    deploy:
+      replicas: 1
+
+
+  gateway:
+    image: msgateway:1.0
+    container_name: msgateway
+    ports:
+      - 9000:9000
+    restart: always
+    depends_on:
+      - registry
+    environment:
+      CONFIG_HOST: 192.168.1.8
+      CONFIG_PORT: 9191
+      REGISTRY_HOST: 192.168.1.8
+      REGISTRY_PORT: 8761
+      KEYCLOAK_HOST: 192.168.1.8
+      KEYCLOAK_PORT: 8080
+      KEYCLOAK_REALMS: ms
+      REDIS_HOST: 192.168.1.8
+      CLIENT_ID: ms_client
+      CLIENT_SECRET: secret
+      CLIENT_SCOPES: openid
+      GATEWAY_PORT: 9000
+#    networks:
+#      - ms_net
+    deploy:
+      replicas: 1
+
+
+  employee:
+    image: msemployee:1.0
+    container_name: msemployee
+    ports:
+      - 9001:9001
+    restart: always
+    depends_on:
+      - registry
+      - config
+    environment:
+      CONFIG_HOST: 192.168.1.8
+      CONFIG_PORT: 9191
+      REGISTRY_HOST: 192.168.1.8
+      REGISTRY_PORT: 8761
+      DATASOURCE_HOST: 192.168.1.8
+      DATASOURCE_PORT: 5432
+      DATASOURCE_DB: ms
+      DATASOURCE_USER: tq
+      DATASOURCE_PASS: t@q
+      KEYCLOAK_HOST: 192.168.1.8
+      KEYCLOAK_PORT: 8080
+      KEYCLOAK_REALMS: ms
+      EMPLOYEE_PORT: 9001
+#    networks:
+#      - ms_net
+    deploy:
+      replicas: 1
+
+
+  project:
+    image: msproject:1.0
+    container_name: msproject
+    ports:
+      - 9002:9002
+    restart: always
+    depends_on:
+      - registry
+      - config
+    environment:
+      CONFIG_HOST: 192.168.1.8
+      CONFIG_PORT: 9191
+      REGISTRY_HOST: 192.168.1.8
+      REGISTRY_PORT: 8761
+      DATASOURCE_HOST: 192.168.1.8
+      DATASOURCE_PORT: 5432
+      DATASOURCE_DB: ms
+      DATASOURCE_USER: tq
+      DATASOURCE_PASS: t@q
+      KEYCLOAK_HOST: 192.168.1.8
+      KEYCLOAK_PORT: 8080
+      KEYCLOAK_REALMS: ms
+      PROJECT_PORT: 9002
+#    networks:
+#      - ms_net
+    deploy:
+      replicas: 1
+
+
+#networks:
+#  ms_net:
+#    driver: overlay
+#    attachable: true

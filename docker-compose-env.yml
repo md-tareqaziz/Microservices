@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - /home/tareq/dockerdata/postgres:/var/lib/postgresql/data
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_USER: tq
+      POSTGRES_PASSWORD: t@q
+      POSTGRES_DB: ms
+#    networks:
+#      - ms_net
+    deploy:
+      replicas: 1
+
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    command: redis-server --appendonly yes
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - /home/tareq/dockerdata/redis:/data
+#    networks:
+#      - ms_net
+    deploy:
+      replicas: 1
+
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:19.0.3
+    command: start-dev
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: ms
+      DB_USER: tq
+      DB_SCHEMA: public
+      DB_PASSWORD: t@q
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+    ports:
+      - 8080:8080
+#    networks:
+#      - ms_net
+    depends_on:
+      - postgres
+
+
+#networks:
+#  ms_net:
+#    driver: overlay
+#    attachable: true

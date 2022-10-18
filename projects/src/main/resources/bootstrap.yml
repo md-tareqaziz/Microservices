@@ -2,4 +2,4 @@ spring:
   cloud:
     config:
       uri:
-        - http://${CONFIG_SERVICE:192.168.1.4:9191}
+        - http://${CONFIG_HOST:192.168.1.4}:${CONFIG_PORT:9191}
