@@ -8,7 +8,7 @@
 - Project Service
 
 ### Registry Service
-Eureka Server is used as a registry service. It is from *spring-cloud*
+Eureka Server is used as a registry service. It is from *spring-cloud*. It allows services to find and communicate with each other without hard-coding the hostname and port.
 
 ### Config Service
 In order to pulling configuration config service is used. Every app load there configuration from config service on startup. It is from *spring-cloud*.
