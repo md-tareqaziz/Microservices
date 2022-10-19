@@ -12,6 +12,7 @@ Eureka Server is used as a registry service. It is from *spring-cloud*. It allow
 
 ### Config Service
 In order to pulling configuration config service is used. Every app load there configuration from config service on startup. It is from *spring-cloud*.
+All configuration are in github. [Configurations](https://github.com/md-tareqaziz/Configurations) 
 
 ### Gateway Service
 Like it's name Gateway service is used as a Gateway.
